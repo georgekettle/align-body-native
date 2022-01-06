@@ -1,12 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import WebViewComponent from './src/WebViewComponent';
+
+
 
 export default function App() {
+  console.log('is dev?', __DEV__)
+  console.log('process.env:', process.env["NODE_ENV"]);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <WebViewComponent/>
+    </SafeAreaProvider>
   );
 }
 
