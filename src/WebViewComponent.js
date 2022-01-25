@@ -1,18 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
-import {
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
 export default function WebViewComponent() {
-  const url = process.env["NODE_ENV"] === 'development' ? 'http://localhost:3000' : 'https://www.alignbody.com.au'
-  const insets = useSafeAreaInsets();
-
-  const runFirst = `
-                      window.isNative = true;
-                      true;
-                    `
+  const nativeParams = '?is_native=true'
+  const url = process.env["NODE_ENV"] === 'development' ? `http://localhost:3000${nativeParams}` : `https://www.alignbody.com.au${nativeParams}`
+  const insets = useSafeAreaInsets()
 
   const sendInsets = () => {
     this.webview.postMessage(
@@ -30,21 +24,22 @@ export default function WebViewComponent() {
       style={styles.container}
       source={{ uri: url }}
       javaScriptEnabled
-      injectedJavaScript={runFirst}
-      onMessage={(event) => {}} // required for injectedJavaScript
+      onMessage={(event) => {
+        data = JSON.parse(event.nativeEvent.data)
+        if (data && data["type"] === 'sendInsets') {
+          sendInsets()
+        }
+      }} // required for injectedJavaScript
       allowsBackForwardNavigationGestures={true}
       sharedCookiesEnabled={true}
-      onLoadEnd={() => {
-        sendInsets();
-      }}
     />
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
