@@ -27,7 +27,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1F2D16"
       },
-      "package": "com.georgekettle.alignbody"
+      "package": "com.georgekettle.alignbody",
+      "googleServicesFile": "./assets/google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

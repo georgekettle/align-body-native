@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Linking from 'expo-linking';
 
 
 export default function WebViewComponent() {
@@ -17,6 +18,10 @@ export default function WebViewComponent() {
     );
   };
 
+  const openExternalLink = (url) => {
+    Linking.openURL(url.toString());
+  }
+
   return (
     <WebView 
       originWhitelist={['*']}
@@ -28,6 +33,9 @@ export default function WebViewComponent() {
         data = JSON.parse(event.nativeEvent.data)
         if (data && data["type"] === 'sendInsets') {
           sendInsets()
+        }
+        if (data && data["type"] === 'openExternalLink') {
+          openExternalLink(data["url"])
         }
       }} // required for injectedJavaScript
       allowsBackForwardNavigationGestures={true}
