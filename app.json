@@ -2,7 +2,7 @@
   "expo": {
     "name": "align-body",
     "slug": "align-body",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "1.2.0",
+      "buildNumber": "1.3.0",
       "supportsTablet": true,
       "bundleIdentifier": "com.georgekettle.align-body"
     },
