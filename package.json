@@ -13,6 +13,7 @@
     "expo-constants": "~13.0.1",
     "expo-device": "~4.1.0",
     "expo-linking": "~3.0.0",
+    "expo-navigation-bar": "~1.1.1",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
