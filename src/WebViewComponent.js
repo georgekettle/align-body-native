@@ -2,18 +2,20 @@ import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Linking from 'expo-linking';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Device from 'expo-device';
 
 
 export default function WebViewComponent() {
   const nativeParams = '?is_native=true'
-  const url = process.env["NODE_ENV"] === 'development' ? `http://localhost:3000${nativeParams}` : `https://www.alignbody.com.au${nativeParams}`
+  const url = process.env["NODE_ENV"] === 'development' ? `https://20aa-202-67-82-171.ngrok.io${nativeParams}` : `https://www.alignbody.com.au${nativeParams}`
   const insets = useSafeAreaInsets()
 
   const sendInsets = () => {
     this.webview.postMessage(
       JSON.stringify({
         type: "expo:safe-area-insets",
-        insets,
+        insets: insets,
       })
     );
   };
@@ -38,6 +40,12 @@ export default function WebViewComponent() {
           openExternalLink(data["url"])
         }
       }} // required for injectedJavaScript
+      onLoadStart={() => {
+        SplashScreen.preventAutoHideAsync();
+      }}
+      onLoadEnd={() => {
+        SplashScreen.hideAsync();
+      }}
       allowsBackForwardNavigationGestures={true}
       sharedCookiesEnabled={true}
     />
