@@ -1,14 +1,16 @@
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Linking from 'expo-linking';
 import * as SplashScreen from 'expo-splash-screen';
-import * as Device from 'expo-device';
 
+// Prevent native splash screen from autohiding before App component declaration
+SplashScreen.preventAutoHideAsync()
 
 export default function WebViewComponent() {
   const nativeParams = '?is_native=true'
-  const url = process.env["NODE_ENV"] === 'development' ? `https://20aa-202-67-82-171.ngrok.io${nativeParams}` : `https://www.alignbody.com.au${nativeParams}`
+  const url = process.env["NODE_ENV"] === 'development' ? `http://localhost:3000${nativeParams}` : `https://www.alignbody.com.au${nativeParams}`
   const insets = useSafeAreaInsets()
 
   const sendInsets = () => {
@@ -18,7 +20,11 @@ export default function WebViewComponent() {
         insets: insets,
       })
     );
-  };
+  }
+
+  const hideSplashScreen = async () => {
+    await SplashScreen.hideAsync();
+  }
 
   const openExternalLink = (url) => {
     Linking.openURL(url.toString());
@@ -39,13 +45,10 @@ export default function WebViewComponent() {
         if (data && data["type"] === 'openExternalLink') {
           openExternalLink(data["url"])
         }
+        if (data && data["type"] === 'hideSplashScreen') {
+          hideSplashScreen()
+        }
       }} // required for injectedJavaScript
-      onLoadStart={() => {
-        SplashScreen.preventAutoHideAsync();
-      }}
-      onLoadEnd={() => {
-        SplashScreen.hideAsync();
-      }}
       allowsBackForwardNavigationGestures={true}
       sharedCookiesEnabled={true}
     />

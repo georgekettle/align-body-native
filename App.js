@@ -1,10 +1,14 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import WebViewComponent from './src/WebViewComponent';
 import * as NavigationBar from 'expo-navigation-bar';
+import * as Device from 'expo-device';
 
 export default function App() {
-  NavigationBar.setBackgroundColorAsync("white");
+  if (Device.osName === 'Android') {
+    NavigationBar.setBackgroundColorAsync("white");
+  }
+
   return (
     <SafeAreaProvider>
       <WebViewComponent/>
