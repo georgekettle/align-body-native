@@ -1,4 +1,7 @@
 {
+  "cli": {
+    "version": ">= 0.35.0"
+  },
   "build": {
     "development": {
       "developmentClient": true,
@@ -11,10 +14,10 @@
   },
   "submit": {
     "production": {
-      "ios": {}
+      "android": {
+        "serviceAccountKeyPath": "./assets/google-service-account-key.json",
+        "track": "internal"
+      },
     }
-  },
-  "cli": {
-    "version": ">= 0.35.0"
   }
 }
